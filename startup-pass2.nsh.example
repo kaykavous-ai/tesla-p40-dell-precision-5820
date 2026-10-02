@@ -1,0 +1,18 @@
+@echo -off
+echo === Sultan Qaboos PASS 2: enable MMIOH window in SocketCommonRcConfig ===
+echo --- current value ---
+dmpstore -guid 4402ca38-808f-4279-bcec-5baf8d59092f SocketCommonRcConfig
+echo.
+echo Will write 115 bytes; only bytes 0-1 become 00 02 and bytes 4-5 become 04 00.
+echo First row after the write should read:  00 02 00 00 04 00 01 02 00 01 00 00 08 06 00 00
+echo.
+echo Press any key to WRITE, or q to quit without writing.
+pause
+setvar SocketCommonRcConfig -guid 4402ca38-808f-4279-bcec-5baf8d59092f -bs -rt -nv =H00020000040001020001000008060000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+echo --- value after write ---
+dmpstore -guid 4402ca38-808f-4279-bcec-5baf8d59092f SocketCommonRcConfig
+dmpstore -guid 4402ca38-808f-4279-bcec-5baf8d59092f -s fs0:\rc-after.bin SocketCommonRcConfig
+dmpstore -guid 4402ca38-808f-4279-bcec-5baf8d59092f -s fs1:\rc-after.bin SocketCommonRcConfig
+echo.
+echo If the first row above matches, type:  reset
+echo Then let it boot STRAIGHT to Windows. Do NOT enter F2 Setup afterwards.
