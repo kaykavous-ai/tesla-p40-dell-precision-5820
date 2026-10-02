@@ -68,7 +68,7 @@ Do **not** enter BIOS Setup and save afterwards (see gotchas). Shut down, instal
 
 ## Result on this machine
 - Before: with the P40 installed, never reached video or the OS; 3–4 power cycles then halt, in either x16 slot.
-- After: **5 power cycles** (the NVRAM boot-failure counter had not been cleared), then the Dell logo, then **Windows 11 booted** with the P40 installed. Device Manager: **"NVIDIA Tesla P40 — This device is working properly"**, PCI Slot 4, no Code 12; Windows Update installed driver 26.21.14.4274 (R440/442.74) by itself.
+- After: **5 power cycles** (initially attributed to Dell's NVRAM boot-failure counter; the second-card run below showed it is a fixed count with a P40 present), then the Dell logo, then **Windows 11 booted** with the P40 installed. Device Manager: **"NVIDIA Tesla P40 — This device is working properly"**, PCI Slot 4, no Code 12; Windows Update installed driver 26.21.14.4274 (R440/442.74) by itself.
 - The Resources tab briefly read *"isn't using any resources because it has a problem"* while the driver install was still pending (*"requires further installation"*); after the restart Windows Update triggered, the card was fully functional:
 
 ```
