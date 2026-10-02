@@ -91,6 +91,8 @@ GPU 00000000:B3:00.0                           <- Quadro K620, slot 1
 
 **`BAR1 Total = 32768 MiB` is the line that proves the MMIOH window is doing its job** — it is exactly what the unfixed 7820 reports show as `BAR1 is 0M`.
 
+Repeated with the **second** Tesla P40 in **slot 2** (first card removed): same result — 5 power cycles, Windows up in ~155 s, `nvidia-smi` BAR1 Total 32768 MiB. So the fix is slot-independent on the 5820 (both x16 slots hang off the single CPU), and the 256 GB window leaves room for two 32 GB BARs at once. Note the consistent **5 power cycles on every cold boot with a P40 present** — it does not decay like Dell's boot-failure counter does, so it appears to be fixed firmware behaviour (PCIe retrain/reset) with a large-BAR card installed; budget ~2.5 minutes to the OS.
+
 ## Gotchas that will silently undo it
 - **BIOS Setup keeps its own copy of this variable and re-zeroes MmiohBase/MmiohSize when you press Save.** Make all other BIOS changes first; write the variable last; afterwards boot straight to the OS. If you ever save in Setup again, redo Step 3.
 - **A CMOS/NVRAM clear (the `RTCRST_PSWD` jumper, or pulling the coin cell) wipes it** — that is also your recovery if a mistyped write leaves the machine unable to POST even with the card out.
